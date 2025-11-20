@@ -1,48 +1,49 @@
 package quickSort;
+import general.*;
 
 public class Randomized {
 	// Randomized
 
-	public static void RandomizedQuickSort(int[] severity, int start, int end) {
+	public static void RandomizedQuickSort(Patient[] patients, int start, int end) {
 		if (start < end) {
-			int p = RandomizedPartition(severity, start, end);
-			System.out.println("Pivot chosen: " + severity[p]);
-			RandomizedQuickSort(severity, start, p - 1);
-			RandomizedQuickSort(severity, p + 1, end);
+			int p = RandomizedPartition(patients, start, end);
+			//System.out.println("Pivot chosen: " + patients[p]);
+			RandomizedQuickSort(patients, start, p - 1);
+			RandomizedQuickSort(patients, p + 1, end);
 		}
 	}
 
 	// Randomized Partition
 
-	public static int RandomizedPartition(int[] severity, int start, int end) {
-		int rand = start + (int) (Math.random() * (end - start));
+	public static int RandomizedPartition(Patient[] patients, int start, int end) {
+		int rand = start + (int) (Math.random() * (end - start + 1));
 
-		int temp = severity[rand];
-		severity[rand] = severity[end];
-		severity[end] = temp;
+		Patient temp = patients[rand];
+		patients[rand] = patients[end];
+		patients[end] = temp;
 
-		return Partition(severity, start, end);
+		return Partition(patients, start, end);
 	}
 
 	// Partition
 
-	public static int Partition(int[] severity, int start, int end) {
+	public static int Partition(Patient[] patients, int start, int end) {
 		int pivot = end;
 		int pointer = start - 1;
 
 		for (int i = start; i < end; i++) {
-			if (severity[i] < severity[pivot]) {
+			if (patients[i].getSeverity() < patients[pivot].getSeverity()) {
 				pointer++;
-				int temp = severity[pointer];
-				severity[pointer] = severity[i];
-				severity[i] = temp;
+				Patient temp = patients[pointer];
+				patients[pointer] = patients[i];
+				patients[i] = temp;
 			}
 
 		}
 
-		int temp = severity[pointer + 1];
-		severity[pointer + 1] = severity[pivot];
-		severity[pivot] = temp;
+		Patient temp = patients[pointer + 1];
+		patients[pointer + 1] = patients[pivot];
+		patients[pivot] = temp;
 
 		return (pointer + 1);
 	}
